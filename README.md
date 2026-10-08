@@ -16,9 +16,9 @@ project. The examples are not based on user-submitted course code.
 4. Restart DrRacket. Choose **Enshittify source…** from the active language
    menu.
 
-After this repository is public, you can also paste
-`https://github.com/Henevy-HDR/racket-enshittifier.git` directly into the
-package source field in **File → Install Package…**.
+To install directly from GitHub, choose **File → Install Package…**, paste
+`https://github.com/Henevy-HDR/racket-enshittifier.git` into the package source
+field, and choose **Install**. The ZIP download above is also available.
 
 The tool runs from DrRacket. During use, it does not require a terminal
 command, replace the open source buffer, or evaluate the program to make a
@@ -85,11 +85,9 @@ examples. The package metadata is in `info.rkt`; the DrRacket integration is in
 ## GitHub Pages
 
 The repository includes a Pages workflow at
-`.github/workflows/pages.yml`. After creating the GitHub repository, select
-**Settings → Pages → GitHub Actions** as the publishing source. A push to
-`main` builds the install archive and deploys the static page; the workflow can
-also be run manually. The workflow only publishes after it is triggered in the
-GitHub repository.
+`.github/workflows/pages.yml`. Select **Settings → Pages → GitHub Actions** as
+the publishing source. A push to `main` builds the install archive and deploys
+the static page; the workflow can also be run manually.
 
 The project is dual-licensed under Apache-2.0 OR MIT; see `LICENSE` and
 `LICENSE-MIT`.

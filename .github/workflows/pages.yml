@@ -1,0 +1,53 @@
+name: Publish GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build the DrRacket package archive
+        run: |
+          mkdir -p downloads
+          rm -f downloads/racket-enshittifier.zip
+          zip -q -r downloads/racket-enshittifier.zip \
+            README.md LICENSE LICENSE-MIT info.rkt tool.rkt enshittifier/core.rkt examples
+
+      - name: Assemble the static site
+        run: |
+          mkdir -p _site/examples _site/downloads
+          cp index.html styles.css README.md LICENSE LICENSE-MIT _site/
+          cp examples/*.rkt _site/examples/
+          cp downloads/racket-enshittifier.zip _site/downloads/
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Deploy Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

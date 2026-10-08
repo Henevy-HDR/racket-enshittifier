@@ -1,0 +1,6 @@
+compiled/
+**/compiled/
+_site/
+*.zo
+*.dep
+.DS_Store

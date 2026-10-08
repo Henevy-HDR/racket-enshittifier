@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2f0e9">
+  <meta name="description" content="A seeded DrRacket tool for structurally transforming a conservative subset of Racket and the teaching languages.">
+  <title>Racket Enshittifier — DrRacket source transformations</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Racket Enshittifier home">
+      <span class="brand-mark" aria-hidden="true">{;}</span>
+      <span>Racket Enshittifier</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="#examples">Examples</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="#install">Install</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero section-wrap" id="top">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span> A source tool for DrRacket</p>
+        <h1>Keep the result.<br><em>Ruin the readability.</em></h1>
+        <p class="hero-lede">A menu-driven transformer that turns supported Racket and teaching-language functions into seeded, structurally overcomplicated source.</p>
+        <div class="hero-actions">
+          <a class="button button-dark" href="#install">Install in DrRacket <span aria-hidden="true">↗</span></a>
+          <a class="text-link" href="#examples">Look at fresh examples <span aria-hidden="true">↓</span></a>
+        </div>
+        <ul class="hero-facts" aria-label="Project highlights">
+          <li>Runs from DrRacket</li>
+          <li>Seeded variations</li>
+          <li>Original stays open</li>
+        </ul>
+      </div>
+      <div class="hero-art" aria-label="A compact Racket transformation preview">
+        <div class="window-bar"><span></span><span></span><span></span><small>sum-down · seed 20261008</small></div>
+        <div class="mini-code">
+          <p><span class="line-no">01</span> <span class="paren">(</span><span class="fn">define</span><span class="paren">(</span><span class="fn">sum-down</span> n<span class="paren">)</span></p>
+          <p><span class="line-no">02</span> &nbsp; <span class="paren">(</span><span class="fn">if</span> <span class="paren">(</span>= n <span class="num">0</span><span class="paren">)</span></p>
+          <p><span class="line-no">03</span> &nbsp;&nbsp;&nbsp; <span class="num">0</span></p>
+          <p><span class="line-no">04</span> &nbsp;&nbsp;&nbsp; <span class="paren">(</span>+ n <span class="paren">(</span><span class="fn">sum-down</span> <span class="paren">(</span><span class="fn">sub1</span> n<span class="paren">)))))</span></p>
+          <div class="code-divider"><span>seeded rewrite</span><i></i></div>
+          <p><span class="line-no">01</span> <span class="paren">(</span><span class="fn">define</span><span class="paren">(</span>sum-down <span class="name">__x__x__x_enshittifier</span><span class="paren">)</span></p>
+          <p><span class="line-no">02</span> &nbsp; <span class="paren">(</span><span class="name">unnecessary_helper_layer_7f869c</span></p>
+          <p><span class="line-no">03</span> &nbsp;&nbsp;&nbsp; <span class="name">__x__x__x_enshittifier</span><span class="paren">)))</span></p>
+          <div class="mini-note"><span class="note-mark">↳</span> 10 structural rewrites · 7 helper layers · 1 seed</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="proof-strip" aria-label="Tool properties">
+      <div><strong>01</strong><span>Preview before opening</span></div>
+      <div><strong>02</strong><span>Original buffer untouched</span></div>
+      <div><strong>03</strong><span>Whitespace density control</span></div>
+    </section>
+
+    <section class="section-wrap section-block" id="how-it-works">
+      <div class="section-heading">
+        <p class="eyebrow">Small, explicit controls</p>
+        <h2>Make the rewrite yours.</h2>
+        <p>Pick the transformation intensity, choose a seed, then decide how much breathing room the output gets.</p>
+      </div>
+      <div class="control-grid">
+        <article class="control-card">
+          <span class="card-index">A / Intensity</span>
+          <h3>Five levels</h3>
+          <p>From a light disturbance to the most complex supported rewrite. More intensity can add control-flow layers, forwarding helpers, and awkward names.</p>
+          <div class="level-meter" aria-label="Five intensity levels"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="meter-labels"><span>mild</span><span>apocalypse</span></div>
+        </article>
+        <article class="control-card density-card">
+          <span class="card-index">B / Text density</span>
+          <h3>Same tokens. Different air.</h3>
+          <p>At 0, spread whitespace into an unruly page. At 100, remove optional spaces and breaks. A fixed seed keeps every non-whitespace character unchanged.</p>
+          <div class="density-demo" aria-label="Low density and high density code preview">
+            <code>( define ( f x )<br>&nbsp;&nbsp;( + x 1 ) )</code>
+            <span class="density-arrow" aria-hidden="true">→</span>
+            <code>(define(f x)(+ x 1))</code>
+          </div>
+          <small>Required token separators and language syntax remain.</small>
+        </article>
+        <article class="control-card">
+          <span class="card-index">C / Seed</span>
+          <h3>Repeat or regenerate</h3>
+          <p>Enter a seed to reproduce a variant, or ask for another variation. Preview it first, then open it in a separate editable DrRacket window.</p>
+          <div class="seed-chip"><span>seed</span><code>20261008</code><span class="seed-check">✓ reproducible</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="examples-section section-block" id="examples">
+      <div class="section-wrap">
+        <div class="section-heading examples-heading">
+          <p class="eyebrow">Fresh examples</p>
+          <h2>Two tiny programs.<br><em>Several bad decisions.</em></h2>
+          <p>These examples were written specifically for this project. The density pair uses one seed and the same transformations; only whitespace changes.</p>
+        </div>
+
+        <article class="example-card">
+          <div class="example-intro">
+            <div>
+              <span class="card-index">Example 01 / BSL recursion</span>
+              <h3>Sum down to zero</h3>
+              <p>A direct recursive function becomes a chain of forwarding helpers and conditional clutter.</p>
+            </div>
+            <div class="example-meta"><span>Seed</span><code>20261008</code><span>Intensity</span><code>5 / 5</code></div>
+          </div>
+          <div class="example-grid">
+            <div class="code-card">
+              <div class="code-title"><span class="status-dot status-clean"></span>Original</div>
+              <pre><code>#lang htdp/bsl
+
+; Add every whole number from n down to zero.
+(define (sum-down n)
+  (if (= n 0)
+      0
+      (+ n (sum-down (sub1 n)))))
+
+(check-expect (sum-down 0) 0)
+(check-expect (sum-down 4) 10)</code></pre>
+              <a href="examples/sum-down.rkt">Open original source ↗</a>
+            </div>
+            <div class="code-card code-card-result">
+              <div class="code-title"><span class="status-dot status-chaos"></span>Airy output · density 10</div>
+              <pre><code>#lang htdp/bsl
+
+  ; Add every whole number from n down to zero.
+(
+
+    define
+
+            (sum-down
+     __x__x__x_enshittifier_c6ac32
+
+               )
+
+               (unnecessary_helper_layer_7f869c
+
+           __x__x__x_enshittifier_c6ac32
+
+     )
+                  )
+
+(define
+       (unnecessary_helper_layer_7f869c
+
+                __x__x__x_enshittifier_ce388c
+               )
+
+ (
+
+        unnecessary_helper_layer_c96025
+
+    __x__x__x_enshittifier_ce388c
+      )
+
+                  )       (define
+      (unnecessary_helper_layer_c96025
+
+                completely_unnecessary_intermediate_value_77b1b2
+            )
+           (unnecessary_helper_layer_5afff9
+
+          completely_unnecessary_intermediate_value_77b1b2)
+ )
+ (define
+                  (
+     unnecessary_helper_layer_5afff9
+              __x__x__x_enshittifier_88a02
+             )
+
+            (unnecessary_helper_layer_b42815
+
+              __x__x__x_enshittifier_88a02
+    )
+     )
+         (define
+
+(
+
+                  unnecessary_helper_layer_b42815
+        completely_unnecessary_intermediate_value_14d2c1
+   ) (unnecessary_helper_layer_2a6fff
+
+     completely_unnecessary_intermediate_value_14d2c1
+             )
+      )
+            (define
+
+(
+   unnecessary_helper_layer_2a6fff
+
+     __x__x__x_enshittifier_6f2d9d
+                )
+          (unnecessary_helper_layer_9707b
+     __x__x__x_enshittifier_6f2d9d
+    )
+
+        )
+
+  (define
+
+        (unnecessary_helper_layer_9707b __x__x__x_enshittifier_35c27a
+  )
+
+        (
+        unnecessary_helper_layer_bb6759					__x__x__x_enshittifier_35c27a
+
+                 )
+     )
+
+  (
+        define
+                  (unnecessary_helper_layer_bb6759
+         completely_unnecessary_intermediate_value_c6d6ff
+                )        (if
+
+                (not
+
+               (if
+           (
+
+          cond
+      ((if
+      (&lt;
+#o0
+            #x1
+           )
+
+       #t
+              #f)
+
+       (=
+
+    completely_unnecessary_intermediate_value_c6d6ff
+(-
+    (+
+                  #o0
+   #o5
+
+        )
+           #b101
+
+  )   )
+    )
+
+                 )
+
+                #t
+
+ #f
+  ))
+             (cond
+                  ((
+
+ if
+                  (
+
+           &lt;
+                  #x0    #b1
+
+           )
+ #t
+#f
+
+)
+
+               (cond
+
+             ((=
+             (
+                 +
+                #o1
+
+                  #o1        )
+                 #b10
+       )				(
+         cond   ((=
+
+      (+
+       #b1
+
+               #x1
+   )
+      #b10)      (if
+
+         (not
+
+    (&lt;
+       #b0
+
+#x0
+
+                ))
+
+       (+
+    completely_unnecessary_intermediate_value_c6d6ff
+               (unnecessary_helper_layer_7f869c
+  (
+
+               sub1
+               completely_unnecessary_intermediate_value_c6d6ff
+
+               )
+
+))
+
+            #f
+
+             )
+             )
+           )
+ )   )
+
+           ))
+       (+
+
+ (-
+
+          #x0
+     #x7
+         )
+           #o7
+         )    )
+       )
+      (check-expect
+    (sum-down
+
+                  #x0)
+
+            #b0)
+
+       (check-expect    (sum-down       #b100)
+               #o12)
+                 ;; enshittifier seed=20261008 level=5 intensity=100% structural=10 helpers=7 renamed=8 literals=22
+;; The indentation has been peer-reviewed by a semi-conscious stapler.
+;; The parentheses have been informed of the project goals.
+;; The parentheses have been informed of the project goals.</code></pre>
+              <a href="examples/sum-down-airy.rkt">Open airy output ↗</a>
+            </div>
+            <div class="code-card code-card-result code-card-wide">
+              <div class="code-title"><span class="status-dot status-chaos"></span>Compact output · density 100</div>
+              <pre><code>#lang htdp/bsl
+; Add every whole number from n down to zero.
+(define(sum-down __x__x__x_enshittifier_c6ac32)(unnecessary_helper_layer_7f869c __x__x__x_enshittifier_c6ac32))(define(unnecessary_helper_layer_7f869c __x__x__x_enshittifier_ce388c)(unnecessary_helper_layer_c96025 __x__x__x_enshittifier_ce388c))(define(unnecessary_helper_layer_c96025 completely_unnecessary_intermediate_value_77b1b2)(unnecessary_helper_layer_5afff9 completely_unnecessary_intermediate_value_77b1b2))(define(unnecessary_helper_layer_5afff9 __x__x__x_enshittifier_88a02)(unnecessary_helper_layer_b42815 __x__x__x_enshittifier_88a02))(define(unnecessary_helper_layer_b42815 completely_unnecessary_intermediate_value_14d2c1)(unnecessary_helper_layer_2a6fff completely_unnecessary_intermediate_value_14d2c1))(define(unnecessary_helper_layer_2a6fff __x__x__x_enshittifier_6f2d9d)(unnecessary_helper_layer_9707b __x__x__x_enshittifier_6f2d9d))(define(unnecessary_helper_layer_9707b __x__x__x_enshittifier_35c27a)(unnecessary_helper_layer_bb6759 __x__x__x_enshittifier_35c27a))(define(unnecessary_helper_layer_bb6759 completely_unnecessary_intermediate_value_c6d6ff)(if(not(if(cond((if(&lt; #o0 #x1)#t #f)(= completely_unnecessary_intermediate_value_c6d6ff(-(+ #o0 #o5)#b101))))#t #f))(cond((if(&lt; #x0 #b1)#t #f)(cond((=(+ #o1 #o1)#b10)(cond((=(+ #b1 #x1)#b10)(if(not(&lt; #b0 #x0))(+ completely_unnecessary_intermediate_value_c6d6ff(unnecessary_helper_layer_7f869c(sub1 completely_unnecessary_intermediate_value_c6d6ff)))#f)))))))(+(- #x0 #x7)#o7)))(check-expect(sum-down #x0)#b0)(check-expect(sum-down #b100)#o12);; enshittifier seed=20261008 level=5 intensity=100% structural=10 helpers=7 renamed=8 literals=22
+;; The indentation has been peer-reviewed by a semi-conscious stapler.
+;; The parentheses have been informed of the project goals.
+;; The parentheses have been informed of the project goals.</code></pre>
+              <a href="examples/sum-down-compact.rkt">Open compact output ↗</a>
+            </div>
+          </div>
+          <div class="example-foot"><span>10 structural rewrites</span><span>7 forwarding helpers</span><span>Both outputs pass the example's checks</span></div>
+        </article>
+
+        <article class="example-card example-card-second">
+          <div class="example-intro">
+            <div>
+              <span class="card-index">Example 02 / BSL logic</span>
+              <h3>Inside a closed interval</h3>
+              <p>A simple range predicate gains nested decisions and deliberately noisy structure.</p>
+            </div>
+            <div class="example-meta"><span>Seed</span><code>20261009</code><span>Intensity</span><code>5 / 5</code></div>
+          </div>
+          <div class="example-grid example-grid-two">
+            <div class="code-card">
+              <div class="code-title"><span class="status-dot status-clean"></span>Original</div>
+              <pre><code>#lang htdp/bsl
+
+; Report whether value lies between the two endpoints, including both.
+(define (between-inclusive? value low high)
+  (and (&lt;= low value) (&lt;= value high)))
+
+(check-expect (between-inclusive? 5 2 8) true)
+(check-expect (between-inclusive? 2 2 8) true)
+(check-expect (between-inclusive? 9 2 8) false)</code></pre>
+              <a href="examples/between-inclusive.rkt">Open original source ↗</a>
+            </div>
+            <div class="code-card code-card-result">
+              <div class="code-title"><span class="status-dot status-chaos"></span>Transformed output · density 45</div>
+              <pre><code>#lang htdp/bsl
+
+ ; Report whether value lies between the two endpoints, including both.
+(define (between-inclusive?
+
+     __x__x__x_enshittifier_109b69  __x__x__x_enshittifier_963a65
+
+__x__x__x_enshittifier_e5ca83)
+
+    (unnecessary_helper_layer_20fa36
+      __x__x__x_enshittifier_109b69 __x__x__x_enshittifier_963a65  __x__x__x_enshittifier_e5ca83
+   ))  (define
+   (unnecessary_helper_layer_20fa36 __x__x__x_enshittifier_65d3b6  __x__x__x_enshittifier_5bb046
+       __x__x__x_enshittifier_49f357)
+      (if     (cond
+          ((if
+   (&lt;    #x0 #x1)
+           #t    #f    )    (     if
+      (not
+      (&lt;    #o0
+        #o0)) (cond
+    ((&lt;
+ #x0
+
+        #x1   )
+
+           (&lt;=    __x__x__x_enshittifier_5bb046     __x__x__x_enshittifier_65d3b6
+     )
+         ))
+#f
+      ))) (if
+
+  (    not
+      (&lt;     #o0
+#x0    )
+         )
+         (cond ((&lt;
+#x0
+ #b1)
+
+     (cond
+        ((&lt;  #b0     #o1     )    (if
+ (not  (&lt; #o0
+        #o0
+ ))
+    (&lt;=  __x__x__x_enshittifier_65d3b6
+     __x__x__x_enshittifier_49f357)
+   #f     ))
+))     )     #f )   #f)
+)
+         (check-expect  (between-inclusive?
+           #b101   #b10
+           #b1000)
+  true) (check-expect
+       (between-inclusive?
+
+     #b10
+           #x2
+      #o10)
+
+     true)
+   (check-expect     (between-inclusive?
+  #b1001
+   #x2
+#x8)    false)    ;; enshittifier seed=20261009 level=5 intensity=100% structural=7 helpers=1 renamed=6 literals=23
+;; The indentation has been peer-reviewed by a semi-conscious stapler.
+;; This line exists so the other line feels supported.
+;; A second opinion was requested from a nearby chair.</code></pre>
+              <a href="examples/between-inclusive-enshittified.rkt">Open transformed source ↗</a>
+            </div>
+          </div>
+          <div class="example-foot"><span>7 structural rewrites</span><span>1 forwarding helper</span><span>All three check-expect tests pass</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-wrap section-block install-section" id="install">
+      <div class="install-copy">
+        <p class="eyebrow">Get it into DrRacket</p>
+        <h2>One install.<br><em>Then use the menu.</em></h2>
+        <p>The plugin runs in DrRacket. The generated program opens separately, with the current language settings, so the source is easy to recover.</p>
+        <a class="button button-light" href="downloads/racket-enshittifier.zip" download>Download the package <span aria-hidden="true">↓</span></a>
+      </div>
+      <ol class="install-steps">
+        <li><span>1</span><div><strong>Download the archive</strong><p>Save the package ZIP from this page.</p></div></li>
+        <li><span>2</span><div><strong>Install through DrRacket</strong><p>Choose <b>File → Install Package…</b> and select the ZIP.</p></div></li>
+        <li><span>3</span><div><strong>Restart and transform</strong><p>Open <b>Enshittify source…</b> from the active language menu.</p></div></li>
+        <li><span>4</span><div><strong>Preview, then open a copy</strong><p>Change settings or generate another variant before opening the editable result.</p></div></li>
+      </ol>
+    </section>
+
+    <section class="limits-section section-block">
+      <div class="section-wrap limits-layout">
+        <div class="section-heading">
+          <p class="eyebrow">What it safely understands</p>
+          <h2>Conservative by design.</h2>
+          <p>It prioritizes known syntax over rewriting everything. If the engine cannot safely classify a form, it leaves that code alone or skips the containing function.</p>
+        </div>
+        <div class="limits-list">
+          <div><span class="limit-icon">✓</span><p><strong>Teaching-language focus</strong><br>BSL and its variants, plus a restricted first-order subset of other supported languages.</p></div>
+          <div><span class="limit-icon">✓</span><p><strong>Reader-aware whitespace</strong><br>Strings, comments, escaped identifiers, character literals, and reader directives are protected.</p></div>
+          <div><span class="limit-icon limit-icon-note">i</span><p><strong>Not a universal equivalence proof</strong><br>Source-location inspection, resource limits, timing, replaced primitives, and unsupported forms remain outside the guarantee.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">{;}</span><span>Racket Enshittifier</span></a>
+    <p>Made for DrRacket. Distributed under <a href="LICENSE">Apache-2.0</a> OR <a href="LICENSE-MIT">MIT</a>.</p>
+    <a href="README.md">Project README ↗</a>
+  </footer>
+</body>
+</html>

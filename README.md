@@ -10,11 +10,21 @@ project. The examples are not based on user-submitted course code.
 
 ## Install in DrRacket
 
-1. Download [`racket-enshittifier.zip`](downloads/racket-enshittifier.zip).
-2. In DrRacket, choose **File → Install Package…**.
-3. Select the downloaded archive as the package source and choose **Install**.
-4. Restart DrRacket. Choose **Enshittify source…** from the active language
+1. In DrRacket, open **File → Package Manager…** and select **Available from
+   Catalog**.
+2. Search for `Racket-Enshittifier`, select the catalog entry, and install it.
+3. Restart DrRacket. Choose **Enshittify source…** from the active language
    menu.
+
+To install the archive instead, download
+[`racket-enshittifier.zip`](downloads/racket-enshittifier.zip), choose
+**File → Install Package…**, select the archive as the package source, and
+choose **Install**.
+
+The catalog detail page is not a package source. If you install from a URL
+instead of selecting the catalog entry, use the GitHub repository URL below.
+The package's generated manual is available from the catalog's **Documentation**
+link once the package build service has processed the release.
 
 To install directly from GitHub, choose **File → Install Package…**, paste
 `https://github.com/Henevy-HDR/racket-enshittifier.git` into the package source

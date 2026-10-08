@@ -6,7 +6,11 @@
 (define pkg-authors '("Racket Enshittifier contributors"))
 (define license '(Apache-2.0 OR MIT))
 (define deps '("base" "drracket-plugin-lib" "gui-lib"))
-(define build-deps '("rackunit-lib"))
+(define build-deps '("rackunit-lib" "scribble-lib"))
 (define compile-omit-paths '("tests" "examples"))
 (define drracket-tool-names '("Racket Enshittifier"))
 (define drracket-tools '(("tool.rkt")))
+(define scribblings
+  '(("scribblings/racket-enshittifier.scrbl"
+     (multi-page)
+     (drracket-plugin))))

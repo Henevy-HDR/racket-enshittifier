@@ -33,8 +33,9 @@ jobs:
         run: |
           mkdir -p downloads
           rm -f downloads/racket-enshittifier.zip
-          zip -q -r downloads/racket-enshittifier.zip \
-            README.md LICENSE LICENSE-MIT info.rkt tool.rkt enshittifier/core.rkt examples
+          TZ=UTC zip -q -r downloads/racket-enshittifier.zip \
+            README.md LICENSE LICENSE-MIT info.rkt tool.rkt \
+            enshittifier/core.rkt examples scribblings/racket-enshittifier.scrbl
 
       - name: Assemble the static site
         run: |

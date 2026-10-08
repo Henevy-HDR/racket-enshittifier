@@ -16,6 +16,10 @@ project. The examples are not based on user-submitted course code.
 4. Restart DrRacket. Choose **Enshittify source…** from the active language
    menu.
 
+After this repository is public, you can also paste
+`https://github.com/Henevy-HDR/racket-enshittifier.git` directly into the
+package source field in **File → Install Package…**.
+
 The tool runs from DrRacket. During use, it does not require a terminal
 command, replace the open source buffer, or evaluate the program to make a
 preview.
@@ -36,15 +40,23 @@ intact by the whitespace formatter.
 
 ## Examples
 
-These original examples use small, neutral problems:
+These original examples use neutral problems at two scales:
 
 - [`sum-down.rkt`](examples/sum-down.rkt), with [airy](examples/sum-down-airy.rkt)
   and [compact](examples/sum-down-compact.rkt) outputs made from the same seed.
 - [`between-inclusive.rkt`](examples/between-inclusive.rkt) and its
   [transformed version](examples/between-inclusive-enshittified.rkt).
+- [`meal-plan.rkt`](examples/meal-plan.rkt), a recursive menu planner with
+  structures, numeric summaries, and combined constraints, plus its
+  [level-5 output](examples/meal-plan-enshittified.rkt).
+- [`league-table.rkt`](examples/league-table.rkt), a recursive standings
+  calculation with nested tie-breakers, plus its
+  [level-5 output](examples/league-table-enshittified.rkt).
 
 Each source and transformed example has `check-expect` tests. They can be run
-from DrRacket or with the development checks below.
+from DrRacket or with the development checks below. The longer examples use
+seeds `20261010` and `20261011`, intensity level 5, and show substantial helper
+proliferation, identifier renaming, conditional rewriting, and layout changes.
 
 ## Language and correctness limits
 

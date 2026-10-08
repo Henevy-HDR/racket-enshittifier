@@ -98,8 +98,8 @@
       <div class="section-wrap">
         <div class="section-heading examples-heading">
           <p class="eyebrow">Fresh examples</p>
-          <h2>Two tiny programs.<br><em>Several bad decisions.</em></h2>
-          <p>These examples were written specifically for this project. The density pair uses one seed and the same transformations; only whitespace changes.</p>
+          <h2>From tiny predicates<br><em>to recursive data.</em></h2>
+          <p>These original BSL examples grow from simple predicates into recursive data processing. The extended samples show structures, helper chains, tie-breakers, and crowded control flow at maximum intensity.</p>
         </div>
 
         <article class="example-card">
@@ -454,7 +454,3557 @@ __x__x__x_enshittifier_e5ca83)
               <a href="examples/between-inclusive-enshittified.rkt">Open transformed source ↗</a>
             </div>
           </div>
-          <div class="example-foot"><span>7 structural rewrites</span><span>1 forwarding helper</span><span>All three check-expect tests pass</span></div>
+          <div class="example-foot"><span>7 structural complexity points</span><span>1 forwarding helper</span><span>All three check-expect tests pass</span></div>
+        </article>
+
+        <article class="example-card example-card-second">
+          <div class="example-intro">
+            <div>
+              <span class="card-index">Example 03 / BSL structures / recursive planning</span>
+              <h3>Weeknight menu planner</h3>
+              <p>Aggregates time, cost, and average ratings for structured dishes, then applies budget, schedule, and vegetarian constraints.</p>
+            </div>
+            <div class="example-meta"><span>Seed</span><code>20261010</code><span>Intensity</span><code>5 / 5</code><span>Density</span><code>18</code></div>
+          </div>
+          <div class="example-grid example-grid-two">
+            <div class="code-card">
+              <div class="code-title"><span class="status-dot status-clean"></span>Original BSL program</div>
+              <pre><code>#lang htdp/bsl
+
+; A Dish stores a name, preparation time, price in cents, rating, and diet flag.
+(define-struct dish (name minutes cents rating vegetarian?))
+
+(define weeknight-menu
+  (list (make-dish "Lentil soup" 25 450 4 true)
+        (make-dish "Herb rice" 20 300 4 true)
+        (make-dish "Roasted squash" 35 600 5 true)))
+
+; Add the preparation times for every dish in the plan.
+(define (total-minutes dishes)
+  (cond
+    [(empty? dishes) 0]
+    [else (+ (dish-minutes (first dishes))
+             (total-minutes (rest dishes)))]))
+
+; Add the price of every dish, keeping the result in whole cents.
+(define (total-cents dishes)
+  (cond
+    [(empty? dishes) 0]
+    [else (+ (dish-cents (first dishes))
+             (total-cents (rest dishes)))]))
+
+; Return the mean rating, or zero when there are no dishes to rate.
+(define (average-rating dishes)
+  (if (empty? dishes)
+      0
+      (/ (rating-total dishes) (length dishes))))
+
+; Helper for average-rating.
+(define (rating-total dishes)
+  (cond
+    [(empty? dishes) 0]
+    [else (+ (dish-rating (first dishes))
+             (rating-total (rest dishes)))]))
+
+; Check every dish instead of stopping at the first vegetarian option.
+(define (all-vegetarian? dishes)
+  (cond
+    [(empty? dishes) true]
+    [else (and (dish-vegetarian? (first dishes))
+               (all-vegetarian? (rest dishes)))]))
+
+; Apply time, price, rating, and optional diet constraints to the whole menu.
+(define (menu-approved? dishes time-limit cents-limit rating-floor vegetarian-only?)
+  (and (&lt;= (total-minutes dishes) time-limit)
+       (&lt;= (total-cents dishes) cents-limit)
+       (&gt;= (average-rating dishes) rating-floor)
+       (or (not vegetarian-only?)
+           (all-vegetarian? dishes))))
+
+(check-expect (total-minutes weeknight-menu) 80)
+(check-expect (total-cents weeknight-menu) 1350)
+(check-expect (average-rating weeknight-menu) 13/3)
+(check-expect (all-vegetarian? weeknight-menu) true)
+(check-expect (all-vegetarian?
+               (cons (make-dish "Mushroom tart" 18 525 5 false)
+                     weeknight-menu))
+              false)
+(check-expect (menu-approved? weeknight-menu 90 1400 4 true) true)
+(check-expect (menu-approved? weeknight-menu 79 1400 4 true) false)
+(check-expect (menu-approved? weeknight-menu 90 1349 4 true) false)
+(check-expect (menu-approved? weeknight-menu 90 1400 5 false) false)
+</code></pre>
+              <a href="examples/meal-plan.rkt">Open original source ↗</a>
+            </div>
+            <div class="code-card code-card-result">
+              <div class="code-title"><span class="status-dot status-chaos"></span>Enshittified BSL output</div>
+              <pre><code>#lang htdp/bsl
+
+
+      ; A Dish stores a name, preparation time, price in cents, rating, and diet flag.
+(define-struct
+ dish
+          (name
+
+        minutes
+  cents
+
+             rating
+ vegetarian?))
+          (define
+       weeknight-menu
+      (list
+        (make-dish
+    "Lentil soup"
+
+      #o31
+
+#x1c2
+
+          #x4
+
+    true)
+
+       (make-dish
+          "Herb rice"
+
+   #o24
+       #o454
+          #o4
+     true)
+         (make-dish
+       "Roasted squash"
+#x23
+     #b1001011000
+    #b101
+
+        true)))
+    ; Add the preparation times for every dish in the plan.
+(define					(total-minutes
+
+          completely_unnecessary_intermediate_value_81b49a
+     )
+                (unnecessary_helper_layer_b3469c
+
+  completely_unnecessary_intermediate_value_81b49a
+
+     )
+
+    )
+
+         (define
+      (unnecessary_helper_layer_b3469c completely_unnecessary_intermediate_value_a866fe)
+
+     (unnecessary_helper_layer_a85f4a
+
+         completely_unnecessary_intermediate_value_a866fe)
+
+       )
+          (define
+
+       (unnecessary_helper_layer_a85f4a  __x__x__x_enshittifier_9b1db2
+           )
+      (
+      unnecessary_helper_layer_1954b4
+  __x__x__x_enshittifier_9b1db2
+
+        ))   (define    (unnecessary_helper_layer_1954b4
+ __x__x__x_enshittifier_4a2462
+    )
+
+               (if
+
+        (if
+          (if      (not    (&lt;
+               #o0
+
+           #x0
+
+   )
+          )
+         (empty?
+
+                __x__x__x_enshittifier_4a2462
+
+     )				#f
+
+   )
+
+           #t
+
+      #f
+)
+(
+
+         -		(+
+
+          #o0
+  #x5)
+          #b101      )
+       (cond
+
+ ((=
+        (
+
+     +
+
+      #b1
+              #o1
+)
+
+       #b10)
+    (
+      if
+        (
+
+ not
+
+               (&lt;
+    #o0
+            #o0
+   )
+
+         )
+         (cond
+  ((if   (&lt;
+         #b0
+    #o1)
+                #t
+         #f
+           )
+(+  (dish-minutes
+           (first
+      __x__x__x_enshittifier_4a2462
+          )
+         )   (unnecessary_helper_layer_b3469c
+
+   (
+
+  rest
+
+       __x__x__x_enshittifier_4a2462
+)
+
+           ))
+
+))
+
+        #f				)
+
+        ))
+        )
+)
+             ; Add the price of every dish, keeping the result in whole cents.
+(define					(total-cents
+          completely_unnecessary_intermediate_value_2d73f4
+
+   )
+(
+unnecessary_helper_layer_81a454
+     completely_unnecessary_intermediate_value_2d73f4
+                ) )
+      (define
+
+               (unnecessary_helper_layer_81a454
+
+               completely_unnecessary_intermediate_value_b325d8
+        )   (unnecessary_helper_layer_9299ed
+
+         completely_unnecessary_intermediate_value_b325d8
+            ))       (define
+
+           (unnecessary_helper_layer_9299ed
+
+             __x__x__x_enshittifier_bf318b
+
+            )
+              (unnecessary_helper_layer_acca75
+
+              __x__x__x_enshittifier_bf318b)
+             )	(define
+              (unnecessary_helper_layer_acca75
+        __x__x__x_enshittifier_a08d46
+         )
+
+         (unnecessary_helper_layer_14161d
+__x__x__x_enshittifier_a08d46
+               )    )
+
+        (define
+             (			unnecessary_helper_layer_14161d
+
+                completely_unnecessary_intermediate_value_d411a5
+
+ )
+
+(unnecessary_helper_layer_38fc04  completely_unnecessary_intermediate_value_d411a5     )
+
+    )
+
+                (define
+(unnecessary_helper_layer_38fc04
+              __x__x__x_enshittifier_1c8a56
+
+               )
+             (unnecessary_helper_layer_2d29a2
+
+  __x__x__x_enshittifier_1c8a56))
+
+ (define
+
+     (
+ unnecessary_helper_layer_2d29a2
+           __x__x__x_enshittifier_a12770
+      )
+
+        (unnecessary_helper_layer_f51fd6
+
+               __x__x__x_enshittifier_a12770))
+        (
+              define
+   (unnecessary_helper_layer_f51fd6
+          completely_unnecessary_intermediate_value_474585
+             )
+      (cond
+((=
+
+       (+
+     #x1
+
+               #o1
+     )
+         #b10)
+               (cond   ((
+
+             if
+      (if
+               (not
+     (&lt;
+          #b0
+#x0
+             )
+      )
+
+           (empty?
+       completely_unnecessary_intermediate_value_474585
+
+             )
+
+         #f    )
+ #t
+
+             #f
+
+     )
+       (-
+
+ (+
+
+ #x0
+
+         #x4)
+  #b100))
+  (else
+          (if
+     (not
+
+             (&lt;
+
+    #x0
+#b0)       )
+
+            (cond
+               (( and
+ (&lt;
+
+  #b0
+            #x1  )
+
+           (not
+
+             (&lt;
+   #o0      #o0
+
+              ))
+            )
+
+    (if
+
+                (not
+        (&lt;
+         #o0
+  #b0
+
+              )
+            )
+          (cond      ((or
+(
+
+           &lt;
+            #o0
+  #x0
+
+           )
+
+      (=
+        #o1    #o2))
+               #f
+
+ )
+(else
+
+ (
+
+  +
+                (dish-cents
+
+               (first
+         completely_unnecessary_intermediate_value_474585))      (unnecessary_helper_layer_81a454
+  (rest
+         completely_unnecessary_intermediate_value_474585
+      )
+  )
+
+         )
+
+           )
+        )
+
+   #f
+
+ )
+
+  )	)
+
+          #f
+
+         )
+
+           ))))
+   )
+
+  ; Return the mean rating, or zero when there are no dishes to rate.
+(define
+
+           (
+
+              average-rating
+  __x__x__x_enshittifier_24341a
+          ) (unnecessary_helper_layer_45efa
+             __x__x__x_enshittifier_24341a
+      )	)
+         (
+
+           define
+              (unnecessary_helper_layer_45efa					completely_unnecessary_intermediate_value_ab0fe1
+
+             )
+      (unnecessary_helper_layer_77ce4f     completely_unnecessary_intermediate_value_ab0fe1
+          )
+
+      )
+
+              (define
+                (unnecessary_helper_layer_77ce4f
+                completely_unnecessary_intermediate_value_dc99fd)
+
+               (
+  unnecessary_helper_layer_b0b69
+            completely_unnecessary_intermediate_value_dc99fd
+
+         )
+
+             ) (define       (unnecessary_helper_layer_b0b69
+
+                __x__x__x_enshittifier_b2a01b
+
+     )  (cond
+        ((if
+
+       (cond
+
+        ((and
+                (
+          &lt; #o0
+
+#b1
+             )
+  (not
+
+        (&lt;
+
+    #o0
+
+               #x0
+  ))			)
+      (cond
+              ((=
+
+(+					#o1
+           #b1
+          )
+
+       #x2
+             )
+    (    cond
+         (
+
+    (&lt;
+      #b0			#b1
+)
+(cond
+         ((=       (
+  +
+
+  #x1				#o1
+
+)
+        #x2      )
+         (if
+
+          (not
+
+               (
+&lt;
+      #o0  #x0     )
+
+       )
+    (empty?
+__x__x__x_enshittifier_b2a01b
+
+  )
+         #f
+
+)
+       )
+
+    )       )      )   )
+                )
+                )      )
+          #t
+             #f     )
+  (*
+                #o1
+#x0)   )    (else
+             (cond      (
+
+(=
+ (+
+
+          #x1
+           #x1
+
+               )
+   #x2
+
+                )
+                (cond
+
+  ((&lt;
+   #b0
+         #x1	)  (cond
+        ((
+      if       (&lt;
+          #x0      #b1
+)
+    #t
+
+     #f
+               )
+
+ (/     (rating-total		__x__x__x_enshittifier_b2a01b
+            )   (length
+
+      __x__x__x_enshittifier_b2a01b
+       )  )
+     )
+              )
+
+      )       )  )  )
+  )
+
+      )
+
+    )
+
+        ; Helper for average-rating.
+(define
+
+ (rating-total
+
+      completely_unnecessary_intermediate_value_1cafd9
+)      (unnecessary_helper_layer_7e0999				completely_unnecessary_intermediate_value_1cafd9     ))
+
+    (define       (
+
+        unnecessary_helper_layer_7e0999
+
+ __x__x__x_enshittifier_5bfbb2
+              )
+               (unnecessary_helper_layer_4dfdf9
+   __x__x__x_enshittifier_5bfbb2
+   )
+          )
+         (
+               define
+
+          (unnecessary_helper_layer_4dfdf9    completely_unnecessary_intermediate_value_ee3299
+   )  (unnecessary_helper_layer_e7a202
+completely_unnecessary_intermediate_value_ee3299  )
+
+               )
+
+(define
+                (unnecessary_helper_layer_e7a202
+              completely_unnecessary_intermediate_value_8a0909)
+
+       (unnecessary_helper_layer_7caec
+       completely_unnecessary_intermediate_value_8a0909
+
+    )
+   )
+  (define
+
+                (
+  unnecessary_helper_layer_7caec
+       completely_unnecessary_intermediate_value_7c664e
+ )
+                (unnecessary_helper_layer_6c2d04
+    completely_unnecessary_intermediate_value_7c664e
+            )       )
+
+      (define
+      (unnecessary_helper_layer_6c2d04
+  completely_unnecessary_intermediate_value_1c9872       )
+(unnecessary_helper_layer_792996
+        completely_unnecessary_intermediate_value_1c9872
+
+               )
+      )      (define
+
+       (unnecessary_helper_layer_792996    __x__x__x_enshittifier_aec811
+
+             )
+        (unnecessary_helper_layer_63b014
+
+      __x__x__x_enshittifier_aec811
+   )
+       )
+
+             (define
+       (unnecessary_helper_layer_63b014
+
+                __x__x__x_enshittifier_9db9e8)
+
+             (
+   unnecessary_helper_layer_3ed78e
+         __x__x__x_enshittifier_9db9e8
+
+              ))
+  (define
+      (unnecessary_helper_layer_3ed78e
+     completely_unnecessary_intermediate_value_75e72b
+
+    )     (cond
+
+               ((=
+      (+
+
+#o1
+
+                #o1)
+
+      #b10 )
+ (cond
+          ((and
+               (&lt;
+
+               #x0		#o1
+          )
+
+             (not
+     (	&lt;
+
+               #o0
+
+       #o0
+
+    )
+  ))
+              (cond
+         (   (
+         if
+(cond
+         ((if
+               (&lt; #x0
+         #x1
+
+  )
+
+           #t
+        #f
+
+ )
+  (cond
+          ((and
+
+              (&lt;
+
+       #b0				#x1   )
+  (not
+              (
+
+&lt;
+         #o0							#b0
+
+      )
+          )
+ )			(if
+
+  (not
+         (&lt;
+            #o0
+
+               #x0)
+           )
+
+                (cond
+             ((&lt;
+
+                #b0
+
+         #x1    )
+ (if
+                (not       (
+   &lt;
+               #b0
+
+      #o0 ))
+
+       (empty?
+
+   completely_unnecessary_intermediate_value_75e72b
+             )
+  #f)      )
+                )
+
+        #f       ))     )
+                ))
+              #t						#f    )   (+
+           (- #b0
+     #b1
+
+        )      #x1
+           )
+ )    (
+               else
+
+              (cond
+             ((if
+
+               (&lt;
+    #b0       #b1
+
+     )
+
+       #t
+ #f
+
+              )
+         (cond
+     ((&lt;
+
+         #o0
+   #o1
+      )
+     (
+  cond
+ (
+
+              (and
+
+ (&lt;
+
+      #x0
+#o1
+
+                )
+         (not
+        (&lt;
+       #x0
+ #b0
+)
+
+  ))
+         (
+         +
+ (
+ dish-rating
+        (first      completely_unnecessary_intermediate_value_75e72b
+
+             )
+     )
+ (unnecessary_helper_layer_7e0999
+
+  ( rest
+
+         completely_unnecessary_intermediate_value_75e72b
+
+            )
+
+                )
+   )
+           )       )
+
+ )
+
+            )     )		)
+       )  )
+             )      ))
+      )    )
+       ; Check every dish instead of stopping at the first vegetarian option.
+(      define
+
+         (all-vegetarian?
+
+      __x__x__x_enshittifier_e42616
+                )
+
+                (unnecessary_helper_layer_dbd6c1
+
+   __x__x__x_enshittifier_e42616
+
+     )    )
+            (    define
+                (unnecessary_helper_layer_dbd6c1
+    completely_unnecessary_intermediate_value_555b3d
+
+               )
+              (unnecessary_helper_layer_1439d3
+
+     completely_unnecessary_intermediate_value_555b3d
+            )
+
+       )    (define			(unnecessary_helper_layer_1439d3
+      __x__x__x_enshittifier_fe9cde
+    )
+  (unnecessary_helper_layer_f39682
+  __x__x__x_enshittifier_fe9cde))
+
+       (define
+          (unnecessary_helper_layer_f39682
+
+        __x__x__x_enshittifier_b23b4f
+               )    (unnecessary_helper_layer_1d0e86
+               __x__x__x_enshittifier_b23b4f
+
+        ))
+          (
+
+               define (unnecessary_helper_layer_1d0e86
+
+    completely_unnecessary_intermediate_value_4e4c32
+         )
+              (cond
+
+       ((if
+ (&lt;
+ #o0
+
+             #b1    )
+
+ #t
+       #f)     (cond  ((&lt;
+
+      #b0
+  #x1
+)
+      (cond
+                ((
+    or
+
+ (
+
+            &lt;
+     #x0
+       #b0
+ )
+               (=
+
+          #o1    #o2   )      )    #f
+             )
+
+         ( else
+       (cond
+             ((
+              if
+           (cond
+                ((or       (&lt;
+                #b0       #o0      )
+
+      (=							#b1
+
+       #x2
+
+             )
+      )
+                #f
+               )
+          (else    (cond
+     ((if
+      (&lt;
+   #b0
+
+            #x1)
+     #t
+
+       #f)
+          (cond
+
+        (
+
+          (and
+            (&lt;
+ #b0 #b1				)
+
+     (
+        not
+  (&lt;
+     #b0
+
+ #x0
+
+      )
+              )
+          )      (
+              empty?
+      completely_unnecessary_intermediate_value_4e4c32
+           )
+
+     )
+
+        )
+         )))    )
+
+   #t
+  #f
+ )
+           true
+
+      )
+ (else
+      (if
+        (dish-vegetarian?
+
+ (first
+
+              completely_unnecessary_intermediate_value_4e4c32
+ )
+
+             )
+     (
+                unnecessary_helper_layer_dbd6c1       (rest    completely_unnecessary_intermediate_value_4e4c32)  )
+  #f
+               )					)	)    )
+           )
+
+  ))      )      )
+
+                )
+             ; Apply time, price, rating, and optional diet constraints to the whole menu.
+(define
+
+             (menu-approved?
+             __x__x__x_enshittifier_42b33b
+
+    __x__x__x_enshittifier_b8c475     completely_unnecessary_intermediate_value_613254   __x__x__x_enshittifier_6c3009
+
+           completely_unnecessary_intermediate_value_5533b7
+      )
+              (unnecessary_helper_layer_52c289
+       __x__x__x_enshittifier_42b33b
+
+             __x__x__x_enshittifier_b8c475
+                completely_unnecessary_intermediate_value_613254
+       __x__x__x_enshittifier_6c3009
+
+            completely_unnecessary_intermediate_value_5533b7
+ )
+            )
+
+   (define
+         (unnecessary_helper_layer_52c289
+             __x__x__x_enshittifier_52058e			__x__x__x_enshittifier_edaeb8
+
+               completely_unnecessary_intermediate_value_4af832
+
+           __x__x__x_enshittifier_e6138b
+
+           completely_unnecessary_intermediate_value_8de08c)
+         (unnecessary_helper_layer_4390e
+__x__x__x_enshittifier_52058e		__x__x__x_enshittifier_edaeb8
+                completely_unnecessary_intermediate_value_4af832
+
+             __x__x__x_enshittifier_e6138b
+
+completely_unnecessary_intermediate_value_8de08c))
+
+  (define    (unnecessary_helper_layer_4390e
+
+     __x__x__x_enshittifier_7f1902
+
+                completely_unnecessary_intermediate_value_5f9f50      __x__x__x_enshittifier_f65e0e
+
+            completely_unnecessary_intermediate_value_4a48cf
+
+        __x__x__x_enshittifier_c0054e)
+ (
+
+    unnecessary_helper_layer_30531
+
+    __x__x__x_enshittifier_7f1902
+
+completely_unnecessary_intermediate_value_5f9f50
+             __x__x__x_enshittifier_f65e0e
+      completely_unnecessary_intermediate_value_4a48cf
+
+    __x__x__x_enshittifier_c0054e
+
+     ) )
+
+            (define      (				unnecessary_helper_layer_30531
+       __x__x__x_enshittifier_a51cbf
+
+           completely_unnecessary_intermediate_value_3e4550
+               __x__x__x_enshittifier_30ae12
+               __x__x__x_enshittifier_ecacc5   completely_unnecessary_intermediate_value_fb351
+             )
+              (unnecessary_helper_layer_74ce9e
+  __x__x__x_enshittifier_a51cbf completely_unnecessary_intermediate_value_3e4550
+
+    __x__x__x_enshittifier_30ae12	__x__x__x_enshittifier_ecacc5   completely_unnecessary_intermediate_value_fb351
+
+     )   )
+
+      (define      (unnecessary_helper_layer_74ce9e
+          __x__x__x_enshittifier_b793c7
+   completely_unnecessary_intermediate_value_17206c
+
+               completely_unnecessary_intermediate_value_bbb43a
+__x__x__x_enshittifier_730c97
+      completely_unnecessary_intermediate_value_805642
+      )
+       (
+             unnecessary_helper_layer_6a18a8
+               __x__x__x_enshittifier_b793c7
+               completely_unnecessary_intermediate_value_17206c      completely_unnecessary_intermediate_value_bbb43a
+
+               __x__x__x_enshittifier_730c97
+                completely_unnecessary_intermediate_value_805642
+               ))
+                (define
+
+           (unnecessary_helper_layer_6a18a8
+
+          __x__x__x_enshittifier_d51397
+             __x__x__x_enshittifier_2a07ef       completely_unnecessary_intermediate_value_2d7702       completely_unnecessary_intermediate_value_b90ae4  __x__x__x_enshittifier_9bb48f
+
+            )
+   (unnecessary_helper_layer_fd20fc
+
+           __x__x__x_enshittifier_d51397
+   __x__x__x_enshittifier_2a07ef
+
+             completely_unnecessary_intermediate_value_2d7702
+
+completely_unnecessary_intermediate_value_b90ae4
+__x__x__x_enshittifier_9bb48f
+
+            )
+      )
+
+                (define
+
+             (unnecessary_helper_layer_fd20fc      __x__x__x_enshittifier_623d2c
+         completely_unnecessary_intermediate_value_1af722
+
+           completely_unnecessary_intermediate_value_4ec532
+
+       __x__x__x_enshittifier_e7d64e
+        __x__x__x_enshittifier_5fd97a
+)
+
+   (if
+
+   (not
+             (&lt;
+          #x0
+          #x0							)
+         )
+   (
+     cond
+
+  ((or
+         (&lt;
+             #b0
+
+  #x0			)
+        (=
+ #x1
+             #b10 )
+
+      )
+
+        #f
+         )
+
+  (else
+               (
+      and
+            (cond
+
+      ((=
+
+               (+
+
+             #o1
+
+       #x1)
+           #b10
+)
+          (cond
+            ((=
+
+      (+
+
+   #o1
+
+            #b1
+       )
+
+  #x2
+
+                )
+  (cond
+ ((
+
+          and
+              (&lt;     #x0
+               #x1)   (not
+
+(&lt;
+    #b0     #x0
+
+    )
+        )
+                )    (&lt;=
+
+   (total-minutes      __x__x__x_enshittifier_623d2c
+
+     )					completely_unnecessary_intermediate_value_1af722)       )
+
+     )
+          )
+      )
+  )
+
+         )
+
+    (cond
+ (
+
+   (if
+        (&lt;
+
+    #o0
+   #b1
+                )
+
+     #t
+       #f
+          )
+             (&lt;=
+
+     (total-cents
+
+                __x__x__x_enshittifier_623d2c   )
+              completely_unnecessary_intermediate_value_4ec532
+              )
+            )
+      )
+
+   (cond
+
+        ((if
+
+            (&lt;
+        #x0
+#x1
+
+ )
+    #t
+              #f
+            )
+
+                (if
+            (not
+
+             (
+        &lt;
+ #o0
+    #x0
+   )
+   )
+           (if
+       (not
+
+(&lt;
+
+                #b0
+
+                #b0
+
+          )
+  )
+            (cond
+
+            ((&lt;
+
+               #o0
+
+          #b1
+      )
+      (&gt;=
+     (average-rating
+               __x__x__x_enshittifier_623d2c)
+   __x__x__x_enshittifier_e7d64e
+
+           )   )
+
+               )
+  #f
+
+            )
+        #f
+)    )
+                )
+
+    (if
+
+  (if
+                __x__x__x_enshittifier_5fd97a
+
+                #f
+              #t)
+      #t
+  (all-vegetarian?
+
+     __x__x__x_enshittifier_623d2c)
+
+ )
+ ) )
+             )
+
+        #f
+
+               )
+           )
+
+       (check-expect
+
+           (total-minutes
+
+    weeknight-menu)
+    #x50)
+
+ (check-expect
+
+    (total-cents
+           weeknight-menu)
+         #b10101000110)      (check-expect
+            (average-rating    weeknight-menu)
+            13/3)
+
+            (check-expect
+
+           (all-vegetarian?      weeknight-menu)
+
+       true)
+
+               (check-expect
+              (all-vegetarian?
+
+      (cons
+                (make-dish
+
+     "Mushroom tart"    #b10010
+          #b1000001101
+
+            #b101
+
+              false)  weeknight-menu))
+
+                false)
+       (check-expect
+           (menu-approved?
+            weeknight-menu
+     #x5a
+          #o2570
+      #o4
+
+   true)
+
+       true)
+          (check-expect
+(menu-approved?   weeknight-menu
+
+           #o117    #o2570    #x4
+     true)
+
+               false)       (check-expect
+      (menu-approved?
+  weeknight-menu
+  #o132
+         #o2505
+#b100
+  true)       false)
+
+    (check-expect
+     (menu-approved?
+                weeknight-menu
+              #b1011010
+
+         #o2570
+         #x5
+                false)
+ false)
+ ;; enshittifier seed=20261010 level=5 intensity=100% structural=58 helpers=31 renamed=65 literals=155
+;; A second opinion was requested from a nearby chair.
+;; The parentheses have been informed of the project goals.
+;; Complexity level: suspicious.
+</code></pre>
+              <a href="examples/meal-plan-enshittified.rkt">Open complete transformed source ↗</a>
+            </div>
+          </div>
+          <div class="example-foot"><span>58 structural complexity points</span><span>31 forwarding helpers</span><span>65 renamed identifiers</span><span>9 check-expect cases included</span></div>
+        </article>
+
+        <article class="example-card example-card-second">
+          <div class="example-intro">
+            <div>
+              <span class="card-index">Example 04 / BSL structures / recursive ranking</span>
+              <h3>League table with tie-breakers</h3>
+              <p>Counts goals and points across match records, then ranks teams through goal difference, goals scored, and a final name comparison.</p>
+            </div>
+            <div class="example-meta"><span>Seed</span><code>20261011</code><span>Intensity</span><code>5 / 5</code><span>Density</span><code>18</code></div>
+          </div>
+          <div class="example-grid example-grid-two">
+            <div class="code-card">
+              <div class="code-title"><span class="status-dot status-clean"></span>Original BSL program</div>
+              <pre><code>#lang htdp/bsl
+
+; A Match records the two teams and their final goal counts.
+(define-struct match (home away home-goals away-goals))
+
+(define autumn-round
+  (list (make-match "Cedar" "Maple" 2 1)
+        (make-match "Pine" "Cedar" 0 1)
+        (make-match "Maple" "Pine" 2 2)
+        (make-match "Cedar" "Pine" 0 1)
+        (make-match "Maple" "Cedar" 1 1)
+        (make-match "Pine" "Maple" 3 2)))
+
+(define registered-teams (list "Cedar" "Maple" "Pine"))
+
+; Count goals scored by team across a list of matches.
+(define (goals-for team matches)
+  (cond
+    [(empty? matches) 0]
+    [else (+ (if (string=? team (match-home (first matches)))
+                 (match-home-goals (first matches))
+                 (if (string=? team (match-away (first matches)))
+                     (match-away-goals (first matches))
+                     0))
+             (goals-for team (rest matches)))]))
+
+; Count goals conceded by team across a list of matches.
+(define (goals-against team matches)
+  (cond
+    [(empty? matches) 0]
+    [else (+ (if (string=? team (match-home (first matches)))
+                 (match-away-goals (first matches))
+                 (if (string=? team (match-away (first matches)))
+                     (match-home-goals (first matches))
+                     0))
+             (goals-against team (rest matches)))]))
+
+; Score a single match from one team's point of view.
+(define (points-in-match team game)
+  (cond
+    [(string=? team (match-home game))
+     (cond
+       [(&gt; (match-home-goals game) (match-away-goals game)) 3]
+       [(= (match-home-goals game) (match-away-goals game)) 1]
+       [else 0])]
+    [(string=? team (match-away game))
+     (cond
+       [(&gt; (match-away-goals game) (match-home-goals game)) 3]
+       [(= (match-away-goals game) (match-home-goals game)) 1]
+       [else 0])]
+    [else 0]))
+
+; Add the team's points from every match.
+(define (total-points team matches)
+  (cond
+    [(empty? matches) 0]
+    [else (+ (points-in-match team (first matches))
+             (total-points team (rest matches)))]))
+
+; Compare teams by points, goal difference, goals scored, then name.
+(define (team-before? left right matches)
+  (cond
+    [(&gt; (total-points left matches) (total-points right matches)) true]
+    [(&lt; (total-points left matches) (total-points right matches)) false]
+    [(&gt; (- (goals-for left matches) (goals-against left matches))
+        (- (goals-for right matches) (goals-against right matches))) true]
+    [(&lt; (- (goals-for left matches) (goals-against left matches))
+        (- (goals-for right matches) (goals-against right matches))) false]
+    [(&gt; (goals-for left matches) (goals-for right matches)) true]
+    [(&lt; (goals-for left matches) (goals-for right matches)) false]
+    [else (string&lt;? left right)]))
+
+; Keep the stronger team when folding a recursively computed table.
+(define (better-team left right matches)
+  (if (team-before? left right matches)
+      left
+      right))
+
+; Return the leading team, with a readable result for an empty league.
+(define (league-leader teams matches)
+  (cond
+    [(empty? teams) "No teams"]
+    [(empty? (rest teams)) (first teams)]
+    [else (better-team (first teams)
+                       (league-leader (rest teams) matches)
+                       matches)]))
+
+(check-expect (goals-for "Cedar" autumn-round) 4)
+(check-expect (goals-against "Cedar" autumn-round) 3)
+(check-expect (total-points "Cedar" autumn-round) 7)
+(check-expect (total-points "Pine" autumn-round) 7)
+(check-expect (team-before? "Pine" "Cedar" autumn-round) true)
+(check-expect (league-leader registered-teams autumn-round) "Pine")
+(check-expect (league-leader empty autumn-round) "No teams")
+</code></pre>
+              <a href="examples/league-table.rkt">Open original source ↗</a>
+            </div>
+            <div class="code-card code-card-result">
+              <div class="code-title"><span class="status-dot status-chaos"></span>Enshittified BSL output</div>
+              <pre><code>#lang htdp/bsl
+
+
+             ; A Match records the two teams and their final goal counts.
+(define-struct
+
+               match
+               (home
+
+           away					home-goals    away-goals))
+
+             (define
+
+               autumn-round (list      (make-match
+
+        "Cedar"
+  "Maple"
+
+         #o2
+        #b1)
+
+  (make-match
+
+                "Pine"      "Cedar" #o0
+                #b1)
+
+              (make-match   "Maple"      "Pine"    #x2
+
+            #b10)
+
+              (make-match
+                "Cedar"
+
+"Pine"
+
+      #o0
+             #o1)
+   (make-match
+
+               "Maple"
+
+  "Cedar"
+              #b1
+
+ #b1)
+              (make-match
+              "Pine"     "Maple"
+  #x3
+               #b10)))
+             (define
+
+               registered-teams
+   (list
+   "Cedar"
+              "Maple"
+
+     "Pine"))
+           ; Count goals scored by team across a list of matches.
+(define
+(goals-for
+
+    __x__x__x_enshittifier_9f1729    __x__x__x_enshittifier_982e8f
+   )
+
+          (unnecessary_helper_layer_8c9045
+
+  __x__x__x_enshittifier_9f1729
+       __x__x__x_enshittifier_982e8f   )
+
+       )
+
+         (define
+(unnecessary_helper_layer_8c9045
+            completely_unnecessary_intermediate_value_de6dca
+ __x__x__x_enshittifier_4f82f2
+
+        )
+
+            (unnecessary_helper_layer_f1767f
+
+     completely_unnecessary_intermediate_value_de6dca
+    __x__x__x_enshittifier_4f82f2)
+
+         )
+         (define
+
+    (unnecessary_helper_layer_f1767f
+    completely_unnecessary_intermediate_value_768cdf   __x__x__x_enshittifier_590ef1
+             )
+            (unnecessary_helper_layer_fc8c14
+completely_unnecessary_intermediate_value_768cdf
+
+     __x__x__x_enshittifier_590ef1
+
+           )
+        )
+    (define
+          (unnecessary_helper_layer_fc8c14
+  completely_unnecessary_intermediate_value_7d6041
+           __x__x__x_enshittifier_305c4
+
+               )
+
+   (unnecessary_helper_layer_d9d1a6
+        completely_unnecessary_intermediate_value_7d6041
+
+       __x__x__x_enshittifier_305c4
+          )
+              )
+              (define
+      (unnecessary_helper_layer_d9d1a6
+      __x__x__x_enshittifier_e05127    __x__x__x_enshittifier_f2e319
+              )
+(unnecessary_helper_layer_70101f
+          __x__x__x_enshittifier_e05127
+
+          __x__x__x_enshittifier_f2e319))
+                (define
+            (
+      unnecessary_helper_layer_70101f
+
+              completely_unnecessary_intermediate_value_3bfdf6		completely_unnecessary_intermediate_value_11d990
+          )
+    (cond
+
+   ((&lt;
+             #o0
+               #x1)
+       (cond
+           ((       =
+
+  (+
+
+               #b1       #x1
+         )
+
+             #o2
+
+      )
+          (cond
+                (
+
+           (if							(&lt;
+
+               #o0
+     #b1)
+               #t
+            #f
+    )
+
+  (cond
+
+          ((if
+
+  (cond
+             (
+
+   (=
+           (+
+                #x1    #b1
+
+             )
+   #o2
+                )
+
+    ( cond
+        ((=       (
+
+        +
+
+ #x1    #b1
+
+                )
+
+         #x2						)
+       (cond      ((   if       (&lt;
+
+#b0
+ #o1
+
+             )
+
+    #t
+           #f     )
+    (cond
+
+          (
+         (or
+ (&lt;
+
+#o0
+#o0
+     )
+
+  (=
+
+            #o1
+  #b10
+           )
+
+)
+
+   #f
+
+             )
+               (else
+         (empty?					completely_unnecessary_intermediate_value_11d990
+
+          ))
+            )))
+
+            )      )
+            )
+           )
+      #t
+ #f)
+              (+       (
+
+         -
+  #b0
+     #x2
+         )
+             #b10)    )
+            (else      (
+           cond
+
+      (
+           (=  (+    #x1
+       #o1
+             )
+
+     #o2)
+  (cond						(       (and
+           (&lt;
+       #b0
+
+        #o1)
+
+     (
+
+      not
+        (&lt;   #b0
+             #x0
+
+               )
+        )
+            )
+        (cond
+
+    ((&lt;
+
+          #b0
+     #b1
+
+ )
+              (+
+    (cond
+  ((if  (string=?     completely_unnecessary_intermediate_value_3bfdf6   (match-home
+                (first
+                completely_unnecessary_intermediate_value_11d990
+ )
+          )
+      )
+               #t
+            #f
+
+        )
+
+        (match-home-goals (first     completely_unnecessary_intermediate_value_11d990
+
+                )))
+         (
+
+             else
+
+       (if
+
+          (
+
+               not
+          (if     (string=?		completely_unnecessary_intermediate_value_3bfdf6
+
+  (match-away
+        (first      completely_unnecessary_intermediate_value_11d990))  )
+    #t
+        #f
+   )
+             )   (*
+                #o1
+                #x0)
+
+          (match-away-goals
+         (first
+  completely_unnecessary_intermediate_value_11d990
+
+        )
+  )
+      )
+
+         )     )
+
+       (  unnecessary_helper_layer_8c9045
+  completely_unnecessary_intermediate_value_3bfdf6
+  ( rest
+ completely_unnecessary_intermediate_value_11d990						)
+       )
+     )
+            ))
+
+             )      )
+
+         )
+          )
+
+       )				)
+        ))
+
+            )						)
+             )
+
+          )					)
+            ; Count goals conceded by team across a list of matches.
+(define
+  (goals-against
+     __x__x__x_enshittifier_2fe645
+ completely_unnecessary_intermediate_value_825454)
+(
+
+ unnecessary_helper_layer_1c7fea
+
+               __x__x__x_enshittifier_2fe645
+      completely_unnecessary_intermediate_value_825454
+            )
+
+            )
+(define
+
+   (							unnecessary_helper_layer_1c7fea
+            completely_unnecessary_intermediate_value_d203a4
+          completely_unnecessary_intermediate_value_8f505c
+      )
+(if
+
+(if
+
+  (cond
+
+         ((&lt;
+
+            #o0
+#x1)
+             (cond
+
+ ( (or
+
+            (&lt;
+        #x0				#x0
+       )
+        (=
+               #x1
+       #b10
+          )
+
+ )
+  #f
+
+                )
+              (else   (if
+
+           (not
+            (&lt;
+
+  #x0
+    #b0
+              )
+
+   )  (
+
+    empty?
+      completely_unnecessary_intermediate_value_8f505c
+
+       )
+
+           #f
+           )
+         )						)      )
+     )
+
+          #t
+             #f       )
+    (+
+
+    #b0
+        #x0
+         )		(cond
+
+             ((
+           or
+               (&lt;		#b0
+      #x0
+         )
+      (=
+
+         #b1
+ #b10
+
+              )
+               )
+          #f
+
+    )
+
+         (else     (
+
+      cond
+         ((=
+       (+
+
+     #o1
+    #x1
+        )
+  #b10
+          )
+
+            (
+
+    if	(not
+
+        (&lt;
+                #x0
+
+       #o0  )
+              )
+
+         (
+         +
+
+                (cond
+
+          ((
+
+    if
+ (string=?     completely_unnecessary_intermediate_value_d203a4
+   (match-home
+          (first
+       completely_unnecessary_intermediate_value_8f505c      )
+
+              )
+
+    ) #t     #f
+                )
+       (
+ match-away-goals
+
+      (first
+         completely_unnecessary_intermediate_value_8f505c)
+                ))
+    (else
+
+      (if
+
+   (not
+     (not
+           (if      (string=?
+  completely_unnecessary_intermediate_value_d203a4
+
+    (match-away
+      (first
+
+completely_unnecessary_intermediate_value_8f505c
+
+      )
+           )
+             )
+
+#t   #f					)       )
+               )
+
+         (match-home-goals
+             (first
+         completely_unnecessary_intermediate_value_8f505c)      )
+ (       +
+     #o0 #o0
+
+    )     )
+         )
+
+       ) (unnecessary_helper_layer_1c7fea
+        completely_unnecessary_intermediate_value_d203a4       (rest
+           completely_unnecessary_intermediate_value_8f505c
+
+    )
+
+               )
+              )
+
+     #f   )    )
+
+  ))       )
+   ))
+
+    ; Score a single match from one team's point of view.
+(
+        define
+              (points-in-match
+
+   completely_unnecessary_intermediate_value_d892da      completely_unnecessary_intermediate_value_e38e73
+ )       (unnecessary_helper_layer_c80a11
+     completely_unnecessary_intermediate_value_d892da
+            completely_unnecessary_intermediate_value_e38e73
+          )					)
+(
+
+         define
+          (unnecessary_helper_layer_c80a11
+
+ __x__x__x_enshittifier_90fe93
+
+           completely_unnecessary_intermediate_value_8e5273
+
+   )
+   (cond
+
+        ((&lt;
+               #b0     #b1)     (cond
+  ((
+    &lt;		#b0
+#x1
+           )
+           (cond
+ ((if      (     &lt;   #o0
+           #x1
+
+)
+
+       #t #f)
+
+   (cond      ((
+            =
+         (
+     +
+
+              #b1      #o1
+    )
+
+     #o2
+       )
+
+       (cond
+
+            (
+
+               (if
+
+      (cond
+        ((&lt; #x0
+     #b1)
+        (string=?
+  __x__x__x_enshittifier_90fe93
+
+       (match-home       completely_unnecessary_intermediate_value_8e5273
+
+             )
+
+               )
+
+))
+           #t
+
+                #f
+ )			(if   (if
+
+     (
+
+ &gt;				(
+            match-home-goals
+               completely_unnecessary_intermediate_value_8e5273
+
+         )   (match-away-goals
+              completely_unnecessary_intermediate_value_8e5273
+
+       )
+            )       #t
+   #f
+
+         )       (+
+
+          (-
+              #b11
+
+             #b1     )
+               #o1    )
+  (if
+
+       (
+               if
+
+          (=
+
+          (match-home-goals  completely_unnecessary_intermediate_value_8e5273
+             )
+ (match-away-goals    completely_unnecessary_intermediate_value_8e5273
+        )
+     )
+
+                #t
+   #f
+
+ )
+
+ (+
+
+               #o1      #b0
+ )
+             (
+
+           *
+
+     #o1
+ #o0
+)
+                )     )
+)    ((if
+
+   (cond
+            ((and
+
+           (
+         &lt;
+
+             #b0       #o1
+    )
+      (not
+(&lt;
+
+              #x0
+
+      #o0)
+         )
+              )
+       (
+            cond
+     ((or
+        (
+          &lt;
+#x0    #x0
+           )
+     (
+            =						#o1    #x2
+              ))
+             #f)
+                (else
+
+  (
+             if
+        (not
+  (
+              &lt;
+   #o0
+                #b0
+
+    )
+
+     )   (cond     ((
+               and
+
+      (&lt;
+
+   #o0
+           #b1
+
+            )
+
+            (not
+
+           (&lt;     #b0
+               #b0       )
+       )
+
+  )
+         (string=?
+           __x__x__x_enshittifier_90fe93
+     (match-away
+      completely_unnecessary_intermediate_value_8e5273
+          )
+              )
+
+))
+#f
+
+             ))
+ )
+
+  )
+
+         )
+               #t
+        #f
+
+         )
+
+            (cond
+
+   ((if
+
+              (&lt;
+
+   #x0       #b1)
+            #t
+
+   #f
+              )
+ (cond       ((
+
+         &lt;
+           #o0
+             #b1
+
+          )
+      (cond
+     (
+            (=
+          (+  #o1
+  #x1
+
+      )
+              #x2      )
+
+       (cond
+    ((&lt;
+    #b0
+       #x1)
+            (cond
+
+             ((
+      =
+ (+ #x1			#o1      )
+
+         #o2     )
+(cond
+ ((if
+
+       (       &gt;
+   (
+          match-away-goals
+ completely_unnecessary_intermediate_value_8e5273
+
+         )
+(match-home-goals
+
+completely_unnecessary_intermediate_value_8e5273
+           )
+            )
+            #t
+
+         #f
+
+          )
+
+(
+
+            *
+           #o1
+
+     #b11
+
+      )     )
+   (
+        (
+if
+
+(=
+
+   (match-away-goals      completely_unnecessary_intermediate_value_8e5273       )
+
+         (match-home-goals
+
+     completely_unnecessary_intermediate_value_8e5273
+               )
+    )
+
+                #t
+          #f
+         )
+       (  +
+  (-
+       #x1
+
+     #b1)
+
+       #x1
+           )
+
+              )
+
+          (
+          else
+           (+
+               (-
+
+                #x0
+
+          #x3
+                )
+   #b11
+
+          )
+
+    )
+
+          )
+ )
+
+   )
+)				)
+
+               )
+
+           ))     )
+             )
+         )      )   (else
+
+              (+
+     #x0
+#x0)
+
+     )
+      ))
+         )
+   ) )  )
+
+           )
+   )
+           )  )
+       ; Add the team's points from every match.
+(define
+
+     (
+
+      total-points
+       completely_unnecessary_intermediate_value_aaa7db
+      completely_unnecessary_intermediate_value_7dcb22
+          )
+
+     (unnecessary_helper_layer_8ec24d
+
+             completely_unnecessary_intermediate_value_aaa7db
+              completely_unnecessary_intermediate_value_7dcb22)
+
+  )
+
+       (
+            define				(
+
+       unnecessary_helper_layer_8ec24d
+
+               completely_unnecessary_intermediate_value_3022ea
+
+            completely_unnecessary_intermediate_value_cf86c9
+         )
+
+    (unnecessary_helper_layer_83212b
+
+           completely_unnecessary_intermediate_value_3022ea
+            completely_unnecessary_intermediate_value_cf86c9)
+
+               )
+           (define
+    (unnecessary_helper_layer_83212b
+
+     __x__x__x_enshittifier_9f1b73
+                completely_unnecessary_intermediate_value_d4c72a)
+
+            (unnecessary_helper_layer_f08357
+
+     __x__x__x_enshittifier_9f1b73
+
+    completely_unnecessary_intermediate_value_d4c72a
+          )
+
+   )
+               (
+          define      (unnecessary_helper_layer_f08357   __x__x__x_enshittifier_ebffe7
+         completely_unnecessary_intermediate_value_24cb4e
+
+           )   (
+
+       unnecessary_helper_layer_2b645f
+
+            __x__x__x_enshittifier_ebffe7      completely_unnecessary_intermediate_value_24cb4e      )
+      )   (define
+  (unnecessary_helper_layer_2b645f
+
+             completely_unnecessary_intermediate_value_4aa02d				__x__x__x_enshittifier_2aa889
+               )
+
+          (unnecessary_helper_layer_f2a514
+
+           completely_unnecessary_intermediate_value_4aa02d
+              __x__x__x_enshittifier_2aa889)
+               )
+              (
+     define
+
+    (unnecessary_helper_layer_f2a514
+               completely_unnecessary_intermediate_value_36a4d1 completely_unnecessary_intermediate_value_8a209f
+
+    )
+
+(unnecessary_helper_layer_a94c20
+
+  completely_unnecessary_intermediate_value_36a4d1     completely_unnecessary_intermediate_value_8a209f)
+
+     )
+
+       (define
+    (unnecessary_helper_layer_a94c20
+
+  __x__x__x_enshittifier_981256       __x__x__x_enshittifier_bdfac3
+ )
+
+           (if
+
+  (if
+
+          (cond
+
+               ((and
+                (&lt;
+
+#o0
+
+        #o1
+
+            )
+         (not
+
+               (&lt;
+
+#o0
+               #o0
+
+            ))				)
+             (cond
+             ((&lt;    #o0
+    #x1
+
+        )
+        (cond   ((=				(+
+
+       #b1
+          #o1
+          )
+ #b10
+        )
+          (empty?
+     __x__x__x_enshittifier_bdfac3)
+
+     )
+   )
+
+       )
+
+          ))
+           )
+
+    #t
+              #f
+                )
+
+         (*
+
+          #b1
+              #b0
+
+        )   (cond
+
+             ((and
+
+           (
+               &lt;
+
+              #o0   #o1
+
+      )       (not
+
+                (
+
+ &lt;
+          #b0
+             #x0
+             ))
+       )
+               (cond
+           (					(and  (   &lt;
+
+  #o0
+
+ #o1						)
+
+               (not
+         (&lt;
+     #x0
+       #b0
+
+))   )					(
+         cond			((or (&lt;
+
+    #b0
+
+  #x0    )
+
+ (=
+                #o1
+
+     #b10
+          )
+
+           )
+             #f
+)		(else
+                (cond
+            ((or
+   (&lt;     #b0
+
+             #b0   )
+
+             (=
+ #b1
+             #x2
+
+          )
+
+  )
+
+                #f
+
+      )
+            (else
+              (
+
+ cond
+
+            ((&lt;
+               #x0
+         #b1
+          )
+       (+
+
+               (points-in-match
+            __x__x__x_enshittifier_981256
+  (first
+
+    __x__x__x_enshittifier_bdfac3
+  ))
+     (unnecessary_helper_layer_8ec24d
+           __x__x__x_enshittifier_981256     (rest
+              __x__x__x_enshittifier_bdfac3
+  )))
+
+          )
+
+    )
+
+         ))
+   ) )
+                ))
+
+    )
+
+       )
+
+ )
+
+            )
+
+          ; Compare teams by points, goal difference, goals scored, then name.
+(
+        define
+      (team-before?     __x__x__x_enshittifier_2e7575
+
+            __x__x__x_enshittifier_f17e5e
+        completely_unnecessary_intermediate_value_54f60f)
+             (unnecessary_helper_layer_2bc20c
+__x__x__x_enshittifier_2e7575
+
+              __x__x__x_enshittifier_f17e5e
+   completely_unnecessary_intermediate_value_54f60f)
+
+     )
+     (
+  define
+   (unnecessary_helper_layer_2bc20c
+
+ completely_unnecessary_intermediate_value_7c0749
+
+         __x__x__x_enshittifier_b6ebb7
+
+            completely_unnecessary_intermediate_value_b29bc0
+             )
+
+     (unnecessary_helper_layer_48e955
+
+  completely_unnecessary_intermediate_value_7c0749       __x__x__x_enshittifier_b6ebb7   completely_unnecessary_intermediate_value_b29bc0
+
+           )
+       )
+            (define
+          (unnecessary_helper_layer_48e955
+
+  completely_unnecessary_intermediate_value_2ece49
+
+             completely_unnecessary_intermediate_value_c66037
+            completely_unnecessary_intermediate_value_f452b6
+
+        )
+         (unnecessary_helper_layer_d2db93
+  completely_unnecessary_intermediate_value_2ece49
+       completely_unnecessary_intermediate_value_c66037
+    completely_unnecessary_intermediate_value_f452b6
+)
+
+  )    (define
+
+  (unnecessary_helper_layer_d2db93
+
+               completely_unnecessary_intermediate_value_d8428    completely_unnecessary_intermediate_value_faf3ad
+
+              __x__x__x_enshittifier_6bdcd0
+
+                )
+
+         (unnecessary_helper_layer_215039
+     completely_unnecessary_intermediate_value_d8428
+   completely_unnecessary_intermediate_value_faf3ad
+  __x__x__x_enshittifier_6bdcd0) )
+              (    define
+
+       (unnecessary_helper_layer_215039  completely_unnecessary_intermediate_value_32e74f
+              completely_unnecessary_intermediate_value_71d997
+     __x__x__x_enshittifier_b32cde     )
+
+                (unnecessary_helper_layer_7a4e03
+
+             completely_unnecessary_intermediate_value_32e74f
+    completely_unnecessary_intermediate_value_71d997    __x__x__x_enshittifier_b32cde)
+              )
+              (
+        define
+              (unnecessary_helper_layer_7a4e03
+ __x__x__x_enshittifier_b1dd0d
+ completely_unnecessary_intermediate_value_97ed39
+
+     __x__x__x_enshittifier_713aeb
+             )   (unnecessary_helper_layer_83a316
+__x__x__x_enshittifier_b1dd0d
+         completely_unnecessary_intermediate_value_97ed39
+
+         __x__x__x_enshittifier_713aeb
+
+     )
+     )
+(
+         define (
+           unnecessary_helper_layer_83a316
+               __x__x__x_enshittifier_bad6e4
+
+                __x__x__x_enshittifier_b3dd
+   __x__x__x_enshittifier_97db09
+
+   )
+
+ (cond
+         ((&lt;    #b0
+
+        #o1     )
+       (cond
+ (
+(
+
+   if
+
+              (cond
+
+          ((if
+
+          (&lt;
+
+  #b0
+      #x1    )
+              #t
+                #f
+         )
+
+           (if       (not
+              (&lt;    #x0
+
+      #b0
+
+      )
+
+        )    (if
+ (not
+
+             (&lt;
+
+        #x0    #x0
+
+          )
+
+     )  (&gt;
+           (
+            total-points
+
+          __x__x__x_enshittifier_bad6e4
+              __x__x__x_enshittifier_97db09
+
+          )
+
+              (total-points
+
+          __x__x__x_enshittifier_b3dd
+
+            __x__x__x_enshittifier_97db09
+)
+
+        )
+       #f
+      )
+
+            #f
+       ))
+        )
+
+             #t
+ #f
+              )   true
+                )
+          ((if
+
+          (cond
+
+         (
+
+    (or
+
+         (   &lt;
+       #o0
+      #x0
+              )      (=
+        #b1
+
+  #o2
+
+              )
+
+            )
+
+         #f
+    ) (else
+               (cond    (
+         (=
+     (+
+            #o1	#x1
+           ) #o2)     (&lt;
+(total-points      __x__x__x_enshittifier_bad6e4
+  __x__x__x_enshittifier_97db09)
+   (total-points
+    __x__x__x_enshittifier_b3dd
+
+                __x__x__x_enshittifier_97db09				)
+
+        )
+
+ )
+
+            )
+       ))
+
+    #t
+
+         #f
+    )
+      false
+      )
+
+          ((if
+
+           (cond
+ ((if   (&lt;
+       #b0
+      #x1
+
+       )
+
+                #t
+ #f)
+    (cond
+
+           (
+
+             (or							(&lt;
+    #b0
+
+            #o0)
+     (=
+
+       #b1
+      #o2
+
+         )
+                )   #f
+
+ )
+
+       (else
+        (cond
+
+       ((
+
+           &lt;
+
+             #x0
+     #b1    )
+        (cond      (
+
+                (if
+  (&lt;    #b0
+           #x1
+        )
+
+#t
+  #f					)
+          (cond
+
+((
+
+&lt;
+     #b0
+     #x1
+
+     )
+           (&gt;
+
+        (-
+                (goals-for
+             __x__x__x_enshittifier_bad6e4
+               __x__x__x_enshittifier_97db09
+   )
+            (goals-against
+
+                __x__x__x_enshittifier_bad6e4
+           __x__x__x_enshittifier_97db09
+      ) )	(-
+
+           (
+
+               goals-for
+    __x__x__x_enshittifier_b3dd
+
+    __x__x__x_enshittifier_97db09
+        )    (goals-against
+          __x__x__x_enshittifier_b3dd
+          __x__x__x_enshittifier_97db09)
+
+ )
+)
+
+       )
+      )
+
+))  )
+
+   )
+            ))
+
+    )
+     )    #t
+             #f
+
+    )
+  true       )
+
+         ((if
+           (if  (not
+      (&lt;
+
+              #b0
+          #x0
+
+)
+       )
+              (cond
+
+               (
+              (if   (&lt;
+   #x0
+   #x1
+
+           )
+
+            #t
+             #f
+        )
+
+     (if
+             (not
+         (
+               &lt;							#o0
+             #x0
+
+           )
+       )
+
+    (cond      (
+
+              (and   (
+
+       &lt;
+
+         #x0
+      #o1
+
+                )
+    (not
+              (
+
+            &lt;
+            #b0    #x0
+
+      ))
+       )
+    (&lt;   (-     (
+
+goals-for
+           __x__x__x_enshittifier_bad6e4
+              __x__x__x_enshittifier_97db09
+                )
+
+      (goals-against
+
+               __x__x__x_enshittifier_bad6e4
+
+ __x__x__x_enshittifier_97db09
+
+    )
+ )
+   (-
+
+               (goals-for
+
+__x__x__x_enshittifier_b3dd
+               __x__x__x_enshittifier_97db09
+         )	(
+
+  goals-against
+           __x__x__x_enshittifier_b3dd   __x__x__x_enshittifier_97db09		)))
+
+                )
+                )
+
+     #f    )
+         )
+                )
+#f
+      )
+
+          #t
+               #f)
+    false
+
+ )				((if
+            (cond
+
+   ((and
+
+             (
+            &lt;
+
+                #x0
+
+    #x1
+
+               )
+
+            (not   (&lt;	#x0
+
+#o0)       )
+
+) (cond
+           ((and
+   (&lt;
+      #b0
+
+           #b1
+
+)
+(not
+   (&lt;
+
+    #o0  #o0
+                )
+
+ )
+        )
+ (cond
+   (
+      (if
+    (&lt;     #o0
+          #x1)
+
+              #t       #f
+
+ )
+
+     (&gt;  (
+
+          goals-for
+ __x__x__x_enshittifier_bad6e4
+
+      __x__x__x_enshittifier_97db09    )
+
+(goals-for
+
+      __x__x__x_enshittifier_b3dd
+
+      __x__x__x_enshittifier_97db09
+       )
+       )
+               )
+        )
+
+ )
+)
+
+        )      )
+   #t
+   #f
+
+        )
+           true
+         )
+
+       (      (if
+   (cond
+               ((if    (&lt;     #x0
+
+    #o1)
+
+   #t    #f
+
+   )
+
+    (cond       (
+           (
+     and
+               (&lt;
+
+             #x0
+
+ #b1
+ )					(not
+
+            (&lt;
+             #o0
+
+   #o0
+   ))
+             )
+       (if
+
+       (not
+
+      (
+
+        &lt;
+       #o0
+
+#b0		)
+                )
+
+         (cond
+
+   ((
+      or
+(&lt;    #b0
+
+   #b0
+
+           )
+            (
+       =
+#b1
+                #x2
+
+                )
+          )
+        #f
+  )
+               (else       (
+ &lt;
+          (goals-for						__x__x__x_enshittifier_bad6e4
+__x__x__x_enshittifier_97db09
+          )
+
+     (goals-for
+
+          __x__x__x_enshittifier_b3dd       __x__x__x_enshittifier_97db09)
+              )
+
+           )
+           )
+
+     #f
+
+                )
+
+             )      )))	#t
+ #f      ) false
+   )
+ (else      (if
+
+            (not
+
+ (&lt;
+               #o0
+         #x0						)
+  )       (cond
+
+               ((&lt;
+            #o0 #b1
+)
+
+     (
+       cond
+         ((if     (&lt;
+           #x0  #x1)				#t
+
+      #f
+           )
+          (cond
+
+((and
+  (&lt;   #b0
+    #b1
+
+          )
+         (not
+   (&lt;
+  #o0
+      #x0
+             ))
+               )
+                (cond
+
+     ((and
+            (
+              &lt;
+
+           #b0     #b1
+               )
+
+     (not
+       (&lt;
+
+            #o0
+         #x0
+
+        )     )
+
+ )     (string&lt;?
+         __x__x__x_enshittifier_bad6e4      __x__x__x_enshittifier_b3dd
+                )
+            )
+    )
+          )
+  ))
+               )
+
+      ))   #f				)
+ )
+
+                )
+         ))
+
+              )
+
+  ; Keep the stronger team when folding a recursively computed table.
+(define
+
+           (better-team __x__x__x_enshittifier_c5d9ff       completely_unnecessary_intermediate_value_466290
+ completely_unnecessary_intermediate_value_4107f9)
+
+              (unnecessary_helper_layer_cac037
+              __x__x__x_enshittifier_c5d9ff
+                completely_unnecessary_intermediate_value_466290
+completely_unnecessary_intermediate_value_4107f9				)
+
+    )  (define
+
+    (unnecessary_helper_layer_cac037
+           __x__x__x_enshittifier_61f937
+             completely_unnecessary_intermediate_value_690f80     completely_unnecessary_intermediate_value_150952
+)
+
+      (unnecessary_helper_layer_b972b7
+          __x__x__x_enshittifier_61f937    completely_unnecessary_intermediate_value_690f80
+          completely_unnecessary_intermediate_value_150952
+     )
+           )
+           (define     (
+     unnecessary_helper_layer_b972b7
+
+   completely_unnecessary_intermediate_value_587a3f
+
+completely_unnecessary_intermediate_value_bd9e6d
+
+      completely_unnecessary_intermediate_value_fbf5ce
+       )
+
+  (  cond
+
+      ((if
+               (cond
+
+     ((&lt;
+
+ #b0
+            #b1
+                )
+
+           (team-before?
+
+   completely_unnecessary_intermediate_value_587a3f
+
+       completely_unnecessary_intermediate_value_bd9e6d
+
+             completely_unnecessary_intermediate_value_fbf5ce )) )
+                #t
+
+                #f
+        )
+      completely_unnecessary_intermediate_value_587a3f
+        )    (else
+
+      completely_unnecessary_intermediate_value_bd9e6d
+
+        )
+
+     )
+    )
+
+                ; Return the leading team, with a readable result for an empty league.
+(define
+
+           (league-leader
+        __x__x__x_enshittifier_be7c5f
+
+  completely_unnecessary_intermediate_value_51a31b
+
+ )
+
+        (unnecessary_helper_layer_777c7d     __x__x__x_enshittifier_be7c5f
+
+             completely_unnecessary_intermediate_value_51a31b)
+       )
+      (define
+
+           (    unnecessary_helper_layer_777c7d
+
+           __x__x__x_enshittifier_97dfc9   __x__x__x_enshittifier_baa0b3     )
+               (
+
+                unnecessary_helper_layer_d981c9
+
+            __x__x__x_enshittifier_97dfc9    __x__x__x_enshittifier_baa0b3
+
+            )
+              )
+               (define
+  (unnecessary_helper_layer_d981c9
+
+            completely_unnecessary_intermediate_value_98e9f7
+
+   completely_unnecessary_intermediate_value_efa806
+    )
+   (unnecessary_helper_layer_95477b
+
+            completely_unnecessary_intermediate_value_98e9f7
+
+      completely_unnecessary_intermediate_value_efa806
+     )     )
+(define
+           (unnecessary_helper_layer_95477b
+
+     completely_unnecessary_intermediate_value_9a30c8
+
+                completely_unnecessary_intermediate_value_20a327)
+              (unnecessary_helper_layer_bf9ca9
+      completely_unnecessary_intermediate_value_9a30c8
+
+          completely_unnecessary_intermediate_value_20a327 )
+               )
+   (define
+
+           (unnecessary_helper_layer_bf9ca9
+     completely_unnecessary_intermediate_value_874e79  __x__x__x_enshittifier_d64a10
+   )						(unnecessary_helper_layer_6ad370
+         completely_unnecessary_intermediate_value_874e79
+
+              __x__x__x_enshittifier_d64a10     )
+                ) (define
+                (
+              unnecessary_helper_layer_6ad370
+               completely_unnecessary_intermediate_value_1eab4	__x__x__x_enshittifier_414b0e
+
+)
+    (unnecessary_helper_layer_97585c
+    completely_unnecessary_intermediate_value_1eab4
+
+         __x__x__x_enshittifier_414b0e
+ )
+
+      )
+    (define
+     (unnecessary_helper_layer_97585c
+
+        __x__x__x_enshittifier_6fd7b6
+ completely_unnecessary_intermediate_value_7efa4d
+)
+
+             (
+
+          unnecessary_helper_layer_9d6cf8
+__x__x__x_enshittifier_6fd7b6
+
+ completely_unnecessary_intermediate_value_7efa4d
+          )       )
+
+ (define   (unnecessary_helper_layer_9d6cf8
+           completely_unnecessary_intermediate_value_6ef9dd
+               completely_unnecessary_intermediate_value_a0abdb
+     )
+
+ (unnecessary_helper_layer_330699
+
+       completely_unnecessary_intermediate_value_6ef9dd
+      completely_unnecessary_intermediate_value_a0abdb
+          )
+      )
+
+     (define
+        (unnecessary_helper_layer_330699
+          completely_unnecessary_intermediate_value_ccff7d
+       completely_unnecessary_intermediate_value_46a180
+     )
+   (if
+
+           (if
+                (cond
+
+        ((
+
+            if
+   (&lt;
+   #b0
+
+  #b1
+          )  #t   #f
+       )
+   (cond
+((
+
+       if
+
+      (&lt;							#o0
+           #x1)
+   #t      #f
+
+        )   (
+
+             cond
+
+               ((
+
+           &lt;
+          #o0
+              #o1    )
+ (empty?       completely_unnecessary_intermediate_value_ccff7d
+ )
+        )
+          )
+
+          ))
+
+      )
+     )
+#t
+      #f
+
+           )
+    "No teams"
+  (if      (if
+  (cond
+            (
+
+ (and
+
+         (&lt;
+               #b0
+                #x1)
+
+    (not
+ (&lt;
+
+#b0
+     #x0    )
+
+     ))
+         (cond
+
+             ((&lt;
+    #b0
+
+      #o1
+           )
+             (cond
+                (
+      (if      (&lt;  #x0
+        #x1
+   )
+#t
+#f
+ )
+
+    (cond
+     (
+
+ (and
+
+(&lt;							#b0
+            #x1
+           )
+
+(not
+  (&lt;
+
+ #x0 #o0
+              )
+)
+
+            )
+
+      (empty?
+        (
+             rest
+
+            completely_unnecessary_intermediate_value_ccff7d   )
+        )
+
+            )
+      )
+    )
+
+  )
+         )
+ )
+     )
+
+      )    #t
+
+         #f
+
+      )
+           (cond      ((
+              &lt;
+
+           #o0
+  #o1
+                )
+
+             (first
+  completely_unnecessary_intermediate_value_ccff7d
+
+            ))
+    )     (cond				((or
+
+   (
+            &lt;
+   #o0   #o0
+
+      )
+             (=
+      #o1
+ #x2
+
+       )
+)
+#f
+           )    (else       (if
+
+           (not     (
+
+      &lt;    #x0
+
+              #b0       ))
+
+               (cond
+            ((if
+          (
+   &lt;	#b0
+
+   #b1
+              )
+
+              #t   #f)       (cond
+
+      ((and    (  &lt;						#x0
+
+     #b1
+         )       (not
+           (&lt; #x0
+               #x0)
+
+        ))
+
+     (
+
+              cond
+
+ ((if
+              (&lt;
+
+            #b0
+         #b1
+
+   ) #t
+
+      #f)
+  (better-team      (first completely_unnecessary_intermediate_value_ccff7d    )
+               (unnecessary_helper_layer_777c7d
+
+              (      rest     completely_unnecessary_intermediate_value_ccff7d
+             )
+
+            completely_unnecessary_intermediate_value_46a180
+              )
+             completely_unnecessary_intermediate_value_46a180
+          )
+
+        )
+))))
+ )
+                #f  )
+         ))))
+              )
+
+(check-expect      (goals-for
+
+            "Cedar"
+
+     autumn-round)
+
+            #x4)
+           (check-expect
+
+            (goals-against
+     "Cedar"
+
+   autumn-round)
+     #o3)
+           (check-expect
+               (total-points
+                "Cedar"    autumn-round)    #x7)	(check-expect  (total-points
+   "Pine"
+                autumn-round)
+
+                #x7)
+
+           (check-expect (team-before?
+
+      "Pine"
+    "Cedar"
+
+  autumn-round)
+     true)
+      (check-expect
+     (league-leader							registered-teams     autumn-round)
+                "Pine")
+            (check-expect   (league-leader
+
+       empty
+
+            autumn-round)
+        "No teams")
+
+             ;; enshittifier seed=20261011 level=5 intensity=100% structural=121 helpers=29 renamed=82 literals=262
+;; A second opinion was requested from a nearby chair.
+;; The code is now wearing a tiny reflective vest.
+;; The parentheses have been informed of the project goals.
+</code></pre>
+              <a href="examples/league-table-enshittified.rkt">Open complete transformed source ↗</a>
+            </div>
+          </div>
+          <div class="example-foot"><span>121 structural complexity points</span><span>29 forwarding helpers</span><span>82 renamed identifiers</span><span>7 check-expect cases included</span></div>
         </article>
       </div>
     </section>
@@ -465,6 +4015,7 @@ __x__x__x_enshittifier_e5ca83)
         <h2>One install.<br><em>Then use the menu.</em></h2>
         <p>The plugin runs in DrRacket. The generated program opens separately, with the current language settings, so the source is easy to recover.</p>
         <a class="button button-light" href="downloads/racket-enshittifier.zip" download>Download the package <span aria-hidden="true">↓</span></a>
+        <p>Once the repository is public, you can also paste <code>https://github.com/Henevy-HDR/racket-enshittifier.git</code> into the package source field in DrRacket.</p>
       </div>
       <ol class="install-steps">
         <li><span>1</span><div><strong>Download the archive</strong><p>Save the package ZIP from this page.</p></div></li>

@@ -8,6 +8,35 @@ The project website is the repository's [`index.html`](index.html). It includes
 installation instructions, limits, and fresh examples written for this
 project. The examples are not based on user-submitted course code.
 
+## Artist's Statement
+*An exercise in computational absurdism.*
+
+Software engineering is traditionally concerned with elegance, efficiency, readability, and the pursuit of simplicity. Generations of programmers have devoted their careers to making code easier to understand, maintain, and reason about.
+
+**Racket-Enshittifier is a deliberate rejection of these aspirations.**
+
+It is an experiment in the unnecessary. A tool designed to take the comprehensible and render it incomprehensible, to transform straightforward expressions into elaborate computational absurdities, and to explore just how far the boundaries of syntactic sanity can be stretched without sacrificing execution.
+
+The underlying proposition is simple: **if a program remains functionally equivalent, how much of its apparent complexity is merely aesthetic?**
+
+By introducing randomized structural transformations, gratuitous abstractions, and deliberate syntactic obscurity, Racket-Enshittifier explores the distinction between what a program *does* and what a program *appears to be*.
+
+Its creations are not necessarily broken. They are, by design, unnecessarily complicated.
+
+This project exists at the intersection of programming-language theory, generative art, and technological satire. It questions the assumption that greater complexity necessarily reflects greater sophistication, while demonstrating the extraordinary capacity of computers to execute constructions that no reasonable human being would willingly maintain.
+
+Racket-Enshittifier does not seek to improve software.
+
+**It seeks to demonstrate that software can be made substantially worse, with considerable engineering effort, for absolutely no practical reason.**
+
+It is a celebration of computational freedom, an exploration of artificial complexity, and a monument to the human capacity to solve problems that never needed to exist.
+
+**The machine does not care whether the code is beautiful.**
+
+**Neither do we.**
+
+*October 2026, Switzerland*
+
 ## Install in DrRacket
 
 1. In DrRacket, open **File → Package Manager…** and select **Available from
